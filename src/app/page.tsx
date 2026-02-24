@@ -14,23 +14,9 @@ export default function Home() {
             Your voice. Your device. Your data.
           </p>
 
-          <p className="text-sm sm:text-base text-zinc-500/80 mb-10">
+          <p className="text-sm sm:text-base text-zinc-500/80">
             An AI assistant that never phones home.
           </p>
-
-          <div className="flex gap-4 justify-center">
-            <a
-              href="https://github.com/pooler-core/pooler-core"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-2.5 text-sm tracking-wider text-zinc-300 border border-zinc-700 rounded hover:border-zinc-500 hover:text-zinc-100 transition-colors"
-            >
-              GitHub
-            </a>
-            <span className="px-6 py-2.5 text-sm tracking-wider text-zinc-600 border border-zinc-800 rounded cursor-default">
-              Coming Soon
-            </span>
-          </div>
         </div>
       </main>
 
@@ -52,15 +38,6 @@ export default function Home() {
             </h3>
             <p className="text-sm text-zinc-500 leading-relaxed">
               Every model is public, auditable, and swappable. No black box.
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium tracking-wider text-zinc-300 uppercase">
-              Pick Your Models
-            </h3>
-            <p className="text-sm text-zinc-500 leading-relaxed">
-              Choose what runs on your device at first launch. Swap anytime.
             </p>
           </div>
 
