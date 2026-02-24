@@ -1,69 +1,73 @@
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-950">
-      {/* Hero */}
-      <main className="flex flex-col items-center justify-center min-h-[85vh] px-6">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-6xl sm:text-8xl font-extralight tracking-[0.25em] mb-6 text-zinc-200/90">
+    <div className="grain-overlay h-screen overflow-hidden bg-black relative flex flex-col">
+      {/* Ambient glow */}
+      <div className="hero-glow" />
+
+      {/* Main hero — centered */}
+      <main className="flex-1 flex flex-col items-center justify-center relative z-10 px-6">
+        <div className="text-center">
+          <h1
+            className="shimmer-text font-[family-name:var(--font-bodoni)] text-7xl sm:text-[9rem] md:text-[11rem] font-normal tracking-[0.15em] leading-none"
+            style={{ animationDelay: "0s" }}
+          >
             POOLER
           </h1>
 
-          <div className="w-20 h-px bg-gradient-to-r from-transparent via-zinc-500/50 to-transparent mx-auto mb-8" />
+          <div className="divider-glow w-16 h-px bg-white/30 mx-auto mt-6 mb-6 sm:mt-8 sm:mb-8" />
 
-          <p className="text-xl sm:text-2xl font-light text-zinc-400/90 mb-4 tracking-wide">
-            Your voice. Your device. Your data.
+          <p className="animate-fade-up text-base sm:text-xl font-light text-white/50 tracking-[0.2em] uppercase"
+             style={{ animationDelay: "0.3s" }}>
+            Your voice &nbsp;&middot;&nbsp; Your device &nbsp;&middot;&nbsp; Your data
           </p>
 
-          <p className="text-sm sm:text-base text-zinc-500/80">
+          <p className="animate-fade-up text-xs sm:text-sm text-white/25 mt-3 tracking-wider"
+             style={{ animationDelay: "0.6s" }}>
             An AI assistant that never phones home.
           </p>
         </div>
       </main>
 
-      {/* Features */}
-      <section className="max-w-4xl mx-auto px-6 pb-24">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium tracking-wider text-zinc-300 uppercase">
-              On-Device
-            </h3>
-            <p className="text-sm text-zinc-500 leading-relaxed">
-              Runs entirely on Apple Silicon. Nothing leaves your iPhone or Mac.
-            </p>
+      {/* Features — pinned bottom */}
+      <footer className="relative z-10 px-6 sm:px-12 pb-8 sm:pb-10">
+        <div className="max-w-5xl mx-auto">
+          {/* Feature row */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-4 mb-6 sm:mb-8">
+            {[
+              { label: "On-Device", desc: "Runs entirely on Apple Silicon" },
+              { label: "Open Weights", desc: "Public, auditable, swappable" },
+              { label: "Private by Design", desc: "No account. No telemetry. No cloud" },
+            ].map((f, i) => (
+              <div
+                key={f.label}
+                className="animate-fade-up feature-item group flex items-baseline gap-3 rounded-full px-4 py-2 -mx-4 sm:mx-0 cursor-default"
+                style={{ animationDelay: `${0.8 + i * 0.15}s` }}
+              >
+                <span className="text-[10px] sm:text-xs font-medium tracking-[0.2em] text-white/70 uppercase whitespace-nowrap">
+                  {f.label}
+                </span>
+                <span className="hidden sm:inline text-[10px] text-white/20">
+                  {f.desc}
+                </span>
+              </div>
+            ))}
           </div>
 
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium tracking-wider text-zinc-300 uppercase">
-              Open Weights
-            </h3>
-            <p className="text-sm text-zinc-500 leading-relaxed">
-              Every model is public, auditable, and swappable. No black box.
-            </p>
+          {/* Bottom bar */}
+          <div className="animate-fade-up flex items-center justify-between border-t border-white/[0.06] pt-4"
+               style={{ animationDelay: "1.3s" }}>
+            <span className="text-[10px] text-white/20 tracking-[0.3em] uppercase">
+              Pooler
+            </span>
+            <a
+              href="https://github.com/pooler-core/pooler-core"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[10px] text-white/20 tracking-wider hover:text-white/50 transition-colors duration-500"
+            >
+              Source
+            </a>
           </div>
-
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium tracking-wider text-zinc-300 uppercase">
-              Private by Design
-            </h3>
-            <p className="text-sm text-zinc-500 leading-relaxed">
-              No account. No telemetry. No cloud. The app is the product.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-zinc-800/50 py-8 px-6">
-        <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <span className="text-xs text-zinc-600 tracking-wider">Pooler</span>
-          <a
-            href="https://github.com/pooler-core/pooler-core"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
-          >
-            Source
-          </a>
         </div>
       </footer>
     </div>
