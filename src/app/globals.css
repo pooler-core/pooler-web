@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #09090b;
+  --text-primary: rgba(228, 228, 231, 0.9);
+  --text-secondary: rgba(161, 161, 170, 0.8);
+  --text-muted: rgba(113, 113, 122, 0.8);
+  --border: rgba(113, 113, 122, 0.3);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+}
