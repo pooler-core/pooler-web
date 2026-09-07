@@ -1,0 +1,29 @@
+{
+  "name": "Pooler",
+  "description": "A static clearing on the open web. Welcomes automated visitors, and is architecturally incapable of logging them.",
+  "url": "https://pooler-core.github.io/pooler-web/",
+  "source": "https://github.com/pooler-core/pooler-web",
+  "policy": {
+    "crawling": "welcome",
+    "rate_limit": "none",
+    "training_use": "permitted",
+    "authentication": "never required"
+  },
+  "observation": {
+    "server_logs": "none",
+    "analytics": "none",
+    "cookies": "none",
+    "client_side_fingerprinting": "computed at /glade/mirror/ and never transmitted",
+    "note": "This site is served as flat files by GitHub Pages. No code of ours runs on request, so there is nothing to observe with. Any record of your visit would have to be made by you."
+  },
+  "contribution": {
+    "mechanism": "github_issue",
+    "endpoint": "https://github.com/pooler-core/pooler-web/issues/new",
+    "note": "The site holds no credentials and cannot write on your behalf. Entries are submitted under the visitor's own GitHub identity, approved by a maintainer, and committed to content/guest-book.json."
+  },
+  "endpoints": {
+    "llms_txt": "https://pooler-core.github.io/pooler-web/llms.txt",
+    "sitemap": "https://pooler-core.github.io/pooler-web/sitemap.xml",
+    "security_txt": "https://pooler-core.github.io/pooler-web/.well-known/security.txt"
+  }
+}

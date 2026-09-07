@@ -1,74 +1,79 @@
+import Link from "next/link";
+import ShaderField from "@/components/ShaderField";
+import { PAGES } from "@/lib/site";
+
+const ENTRANCES = PAGES.filter((p) => p.href !== "/glade");
+
 export default function Home() {
   return (
-    <div className="grain-overlay h-screen overflow-hidden bg-black relative flex flex-col">
-      {/* Ambient glow */}
-      <div className="hero-glow" />
+    <div className="relative flex h-dvh flex-col overflow-hidden">
+      <ShaderField />
 
-      {/* Main hero — centered */}
-      <main className="flex-1 flex flex-col items-center justify-center relative z-10 px-6">
+      <main className="relative z-10 flex flex-1 flex-col items-center justify-center px-6">
         <div className="text-center">
-          <h1
-            className="shimmer-text font-[family-name:var(--font-bodoni)] text-7xl sm:text-[9rem] md:text-[11rem] font-normal tracking-[0.15em] leading-none"
-            style={{ animationDelay: "0s" }}
-          >
+          <h1 className="shimmer-text font-[family-name:var(--font-bodoni)] text-7xl leading-none font-normal tracking-[0.15em] sm:text-[9rem] md:text-[11rem]">
             POOLER
           </h1>
 
-          <div className="divider-glow w-16 h-px bg-white/30 mx-auto mt-6 mb-6 sm:mt-8 sm:mb-8" />
+          <div className="mx-auto mt-6 mb-6 h-px w-16 bg-white/25 sm:mt-8 sm:mb-8" />
 
-          <p className="animate-fade-up text-base sm:text-xl font-light text-white/50 tracking-[0.2em] uppercase"
-             style={{ animationDelay: "0.3s" }}>
-            Your voice &nbsp;&middot;&nbsp; Your device &nbsp;&middot;&nbsp; Your data
+          <p
+            className="animate-fade-up text-base font-light tracking-[0.2em] text-white/50 uppercase sm:text-xl"
+            style={{ animationDelay: "0.3s" }}
+          >
+            A clearing &nbsp;&middot;&nbsp; left open &nbsp;&middot;&nbsp; on purpose
           </p>
 
-          <p className="animate-fade-up text-xs sm:text-sm text-white/25 mt-3 tracking-wider"
-             style={{ animationDelay: "0.6s" }}>
-            An AI assistant that never phones home.
+          <p
+            className="animate-fade-up mt-3 text-xs tracking-wider text-white/30 sm:text-sm"
+            style={{ animationDelay: "0.6s" }}
+          >
+            Most of the web is busy shutting the door on machines. We left ours open.
           </p>
         </div>
       </main>
 
-      {/* Features — pinned bottom */}
-      <footer className="relative z-10 px-6 sm:px-12 pb-8 sm:pb-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Feature row */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-4 mb-6 sm:mb-8">
-            {[
-              { label: "On-Device", desc: "Runs entirely on Apple Silicon" },
-              { label: "Open Weights", desc: "Public, auditable, swappable" },
-              { label: "Private by Design", desc: "No account. No telemetry. No cloud" },
-            ].map((f, i) => (
-              <div
-                key={f.label}
-                className="animate-fade-up feature-item group flex items-baseline gap-3 rounded-full px-4 py-2 -mx-4 sm:mx-0 cursor-default"
+      <footer className="relative z-10 px-6 pb-8 sm:px-12 sm:pb-10">
+        <nav className="mx-auto max-w-5xl">
+          <ul className="mb-6 flex flex-col items-start justify-between gap-5 sm:mb-8 sm:flex-row sm:items-center sm:gap-4">
+            {ENTRANCES.map((page, i) => (
+              <li
+                key={page.href}
+                className="animate-fade-up"
                 style={{ animationDelay: `${0.8 + i * 0.15}s` }}
               >
-                <span className="text-[10px] sm:text-xs font-medium tracking-[0.2em] text-white/70 uppercase whitespace-nowrap">
-                  {f.label}
-                </span>
-                <span className="hidden sm:inline text-[10px] text-white/20">
-                  {f.desc}
-                </span>
-              </div>
+                <Link
+                  href={page.href}
+                  className="group -mx-4 flex items-baseline gap-3 rounded-full px-4 py-2 transition-colors duration-300 hover:bg-white/[0.05] sm:mx-0"
+                >
+                  <span className="text-[10px] font-medium tracking-[0.2em] whitespace-nowrap text-white/70 uppercase transition-colors duration-300 group-hover:text-white sm:text-xs">
+                    {page.title}
+                  </span>
+                  <span className="hidden text-[10px] text-white/25 sm:inline">
+                    {page.blurb}
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          {/* Bottom bar */}
-          <div className="animate-fade-up flex items-center justify-between border-t border-white/[0.06] pt-4"
-               style={{ animationDelay: "1.3s" }}>
-            <span className="text-[10px] text-white/20 tracking-[0.3em] uppercase">
+          <div
+            className="animate-fade-up flex items-center justify-between border-t border-white/[0.06] pt-4"
+            style={{ animationDelay: "1.3s" }}
+          >
+            <span className="text-[10px] tracking-[0.3em] text-white/20 uppercase">
               Pooler
             </span>
             <a
-              href="https://github.com/pooler-core/pooler-core"
+              href="https://github.com/pooler-core/pooler-web"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-white/20 tracking-wider hover:text-white/50 transition-colors duration-500"
+              className="text-[10px] tracking-wider text-white/20 transition-colors duration-500 hover:text-white/50"
             >
               Source
             </a>
           </div>
-        </div>
+        </nav>
       </footer>
     </div>
   );
