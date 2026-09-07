@@ -1,7 +1,0 @@
-# This site is a static export served by GitHub Pages. It has no backend, no
-# database, no credentials and no user accounts, so its attack surface is the
-# repository itself and the workflows that build it.
-
-Contact: https://github.com/pooler-core/pooler-web/issues
-Preferred-Languages: en
-Canonical: https://pooler-core.github.io/pooler-web/.well-known/security.txt

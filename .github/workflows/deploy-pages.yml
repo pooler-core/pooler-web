@@ -29,13 +29,19 @@ jobs:
           cache: npm
 
       # NOTE: deliberately no `static_site_generator: next` here. That input
-      # rewrites the Next config to inject basePath, which would double up with
-      # the basePath already set in next.config.ts.
+      # rewrites the Next config to inject basePath. We take the same values
+      # from this action's outputs instead and pass them to the build, which
+      # keeps one source of truth and works whether Pages serves a custom
+      # domain at the root or a project page under /pooler-web.
       - uses: actions/configure-pages@v5
+        id: pages
 
       - run: npm ci
 
       - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

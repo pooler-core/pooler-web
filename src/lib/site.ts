@@ -1,4 +1,8 @@
-export const SITE_URL = "https://pooler-core.github.io/pooler-web";
+/**
+ * Set by next.config.ts from the deploy workflow's `configure-pages` outputs,
+ * so canonical URLs follow whatever domain Pages is actually serving.
+ */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://pooler.ai";
 
 export const REPO = "pooler-core/pooler-web";
 
