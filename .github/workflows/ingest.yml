@@ -1,0 +1,66 @@
+name: Ingest
+
+# Moderation gate: an issue only reaches the site once a maintainer applies the
+# `approved` label. Nothing a stranger writes publishes itself.
+#
+# Which file it lands in depends on the issue's other labels:
+#   message     -> content/messages/<year>/<month>/<issue>-<slug>.md
+#   guest-book  -> content/guest-book.json
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  ingest:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: File as a message
+        if: contains(github.event.issue.labels.*.name, 'message')
+        run: node scripts/ingest-message.mjs
+        env:
+          # Passed as an environment variable, never interpolated into the
+          # script body — an issue title or body is untrusted input.
+          ISSUE: ${{ toJSON(github.event.issue) }}
+
+      - name: File as a guest book entry
+        if: contains(github.event.issue.labels.*.name, 'guest-book')
+        run: node scripts/ingest-guest-book.mjs
+        env:
+          ISSUE: ${{ toJSON(github.event.issue) }}
+
+      - id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Ingest: #${ISSUE_NUMBER}"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+  pages:
+    needs: ingest
+    if: needs.ingest.outputs.changed == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy-pages.yml

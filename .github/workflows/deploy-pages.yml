@@ -1,0 +1,58 @@
+name: Build and deploy Pages
+
+# Reusable: called by nextjs.yml on push, and by guest-book.yml after it
+# commits a new entry. A push made with the default GITHUB_TOKEN does not
+# trigger further workflows, so the guest book has to call this directly rather
+# than relying on its own commit to set off the push workflow.
+on:
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # NOTE: deliberately no `static_site_generator: next` here. That input
+      # rewrites the Next config to inject basePath. We take the same values
+      # from this action's outputs instead and pass them to the build, which
+      # keeps one source of truth and works whether Pages serves a custom
+      # domain at the root or a project page under /pooler-web.
+      - uses: actions/configure-pages@v5
+        id: pages
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

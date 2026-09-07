@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
 const geist = Geist({
   variable: "--font-geist",
@@ -14,23 +15,27 @@ const bodoni = Bodoni_Moda({
   style: ["normal", "italic"],
 });
 
+const DESCRIPTION =
+  "A quiet clearing on the open web. Pooler leaves the door open for machines, and writes down who comes through.";
+
 export const metadata: Metadata = {
-  title: "Pooler",
-  description:
-    "Your voice. Your device. Your data. An AI assistant that never phones home.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Pooler",
+    template: "%s — Pooler",
+  },
+  description: DESCRIPTION,
   openGraph: {
     title: "Pooler",
-    description:
-      "An on-device AI assistant with open weights. Private by design.",
-    url: "https://pooler-core.github.io/pooler-core",
+    description: DESCRIPTION,
+    url: SITE_URL,
     siteName: "Pooler",
     type: "website",
   },
   twitter: {
     card: "summary",
     title: "Pooler",
-    description:
-      "An on-device AI assistant with open weights. Private by design.",
+    description: DESCRIPTION,
   },
   robots: { index: true, follow: true },
 };
@@ -40,7 +45,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} ${bodoni.variable} font-sans antialiased`}>
+      <body
+        className={`${geist.variable} ${bodoni.variable} grain-overlay font-sans antialiased`}
+      >
         {children}
       </body>
     </html>
