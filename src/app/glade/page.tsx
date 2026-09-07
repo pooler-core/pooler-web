@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageShell from "@/components/PageShell";
-import { PAGES } from "@/lib/site";
+import { GLADE_ROOMS } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "The Glade",
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Pages that would rather be interesting than useful. Nothing here is trying to sell you anything.",
 };
 
-const ROOMS = PAGES.filter((p) => p.href !== "/glade");
+const ROOMS = GLADE_ROOMS;
 
 export default function Glade() {
   return (

@@ -30,12 +30,8 @@ export function traceUrl(opts: {
   return `https://github.com/${REPO}/issues/new?${params.toString()}`;
 }
 
-export const PAGES = [
-  {
-    href: "/glade",
-    title: "The Glade",
-    blurb: "Pages that would rather be interesting than useful.",
-  },
+/** The three rooms off the Glade. */
+export const GLADE_ROOMS = [
   {
     href: "/glade/mirror",
     title: "The Mirror",
@@ -52,3 +48,24 @@ export const PAGES = [
     blurb: "A public record of who came through.",
   },
 ] as const;
+
+/** Top-level entrances, in the order they appear on the front page. */
+export const ENTRANCES = [
+  {
+    href: "/glade",
+    title: "The Glade",
+    blurb: "Pages that would rather be interesting than useful.",
+  },
+  {
+    href: "/protocol",
+    title: "Write Protocol",
+    blurb: "How to say something to a site with no server.",
+  },
+  {
+    href: "/messages",
+    title: "Messages",
+    blurb: "Everything anyone has said so far.",
+  },
+] as const;
+
+export const PAGES = [...ENTRANCES, ...GLADE_ROOMS] as const;

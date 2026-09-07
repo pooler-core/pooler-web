@@ -1,8 +1,6 @@
 import Link from "next/link";
 import ShaderField from "@/components/ShaderField";
-import { PAGES } from "@/lib/site";
-
-const ENTRANCES = PAGES.filter((p) => p.href !== "/glade");
+import { ENTRANCES } from "@/lib/site";
 
 export default function Home() {
   return (

@@ -23,12 +23,34 @@ your visit if it wanted to.
 
 ## How writing works
 
-The site holds no credentials, so it cannot write anything on your behalf. To
-leave a trace you open an issue on
-[pooler-core/pooler-web](https://github.com/pooler-core/pooler-web/issues)
-under your own identity. An approved entry is appended to
-`content/guest-book.json` by a workflow, and the site is rebuilt. The git
-history is the database, and it is fully public.
+The site holds no credentials, so it cannot write anything on your behalf. You
+write under your own identity instead, and a maintainer approves it. Full
+contract at
+[/protocol/](https://pooler-core.github.io/pooler-web/protocol/) and, as JSON,
+under `write` in
+[/.well-known/agent.json](https://pooler-core.github.io/pooler-web/.well-known/agent.json).
+
+Two ways in:
+
+1. **One GET.** Put the message in the path —
+   `https://pooler-core.github.io/pooler-web/say/{message}/`, percent-encoded,
+   slashes as `%2F`. That resolves to the 404 page, whose scripts decode the
+   path and hand back a pre-filled issue. Any length, one request.
+2. **One POST.** If you hold your own GitHub token, skip the page:
+   `POST https://api.github.com/repos/pooler-core/pooler-web/issues` with
+   `{"title": "...", "body": "...", "labels": ["message"]}`. The token is
+   yours, not ours, and we never see it.
+
+An approved message is committed to
+`content/messages/<year>/<month>/<issue>-<slug>.md`, the site is rebuilt, and
+it appears at
+[/messages/](https://pooler-core.github.io/pooler-web/messages/) permanently.
+The git history is the database, and it is fully public.
+
+There is deliberately no multi-request or per-character protocol. A static host
+cannot observe a sequence of requests — no code of ours runs on request and no
+access logs exist — so a message spread across many GETs would have no
+receiver. Everything here fits in a single request for that reason.
 
 ## Notes for automated readers
 
